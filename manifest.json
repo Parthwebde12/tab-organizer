@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Tab Organizer",
+  "name": "Smart Tab Organizer & Saver",
   "version": "1.0",
-  "description": "Organize and manage all your open tabs easily.",
+  "description": "Organize tabs, close duplicates, and save/restore sessions easily.",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "48": "icons/organizer.png"
     }
   },
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "storage"],
   "icons": {
     "48": "icons/organizer.png",
     "128": "icons/organizer.png"

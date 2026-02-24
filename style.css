@@ -1,15 +1,15 @@
 body {
-  width: 280px;
+  width: 300px;
   font-family: Arial, sans-serif;
   padding: 12px;
-  background: #1e1e1e;
+  background: linear-gradient(135deg, #1c1c1c, #2c2c2c);
+  border-radius: 12px;
   color: #fff;
 }
 
 h2 {
   margin-bottom: 10px;
   color: #f39c12;
-  font-size: 20px;
   text-align: center;
 }
 
@@ -25,7 +25,7 @@ h2 {
 ul {
   list-style: none;
   padding: 0;
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: auto;
 }
 
@@ -50,4 +50,20 @@ li button {
 
 li button:hover {
   background: #c0392b;
+}
+
+.session-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.session-buttons button {
+  flex: 1;
+  margin: 2px;
+  background: #2980b9;
+}
+
+.session-buttons button:hover {
+  background: #1f618d;
 }

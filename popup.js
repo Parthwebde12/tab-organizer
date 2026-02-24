@@ -1,18 +1,26 @@
 const tabList = document.getElementById("tabList");
 const searchInput = document.getElementById("search");
+const saveSessionBtn = document.getElementById("saveSession");
+const restoreSessionBtn = document.getElementById("restoreSession");
 
 
 function loadTabs() {
-    chrome.tabs.query({currentWindow: true}, function(tabs) {
+    chrome.tabs.query({ currentWindow: true }, (tabs) => {
         tabList.innerHTML = "";
+        const seenUrls = new Set();
+
         tabs.forEach(tab => {
+            // Skip duplicate URLs
+            if(seenUrls.has(tab.url)) return;
+            seenUrls.add(tab.url);
+
             const li = document.createElement("li");
-            li.textContent = tab.title.length > 30 ? tab.title.slice(0,30)+"..." : tab.title;
+            li.textContent = tab.title.length > 35 ? tab.title.slice(0,35) + "..." : tab.title;
 
             const closeBtn = document.createElement("button");
             closeBtn.textContent = "✖";
             closeBtn.addEventListener("click", () => {
-                chrome.tabs.remove(tab.id, () => loadTabs());
+                chrome.tabs.remove(tab.id, loadTabs);
             });
 
             li.appendChild(closeBtn);
@@ -20,7 +28,6 @@ function loadTabs() {
         });
     });
 }
-
 
 searchInput.addEventListener("input", () => {
     const filter = searchInput.value.toLowerCase();
@@ -32,5 +39,27 @@ searchInput.addEventListener("input", () => {
         }
     });
 });
+
+
+saveSessionBtn.addEventListener("click", () => {
+    chrome.tabs.query({ currentWindow: true }, (tabs) => {
+        const urls = tabs.map(t => t.url);
+        chrome.storage.local.set({ savedSession: urls }, () => {
+            alert("Session saved! ✅");
+        });
+    });
+});
+
+
+restoreSessionBtn.addEventListener("click", () => {
+    chrome.storage.local.get("savedSession", (data) => {
+        if(data.savedSession && data.savedSession.length > 0) {
+            data.savedSession.forEach(url => chrome.tabs.create({ url }));
+        } else {
+            alert("No session saved!");
+        }
+    });
+});
+
 
 loadTabs();
