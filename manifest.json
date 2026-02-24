@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Organizer",
+  "version": "1.0",
+  "description": "Organize and manage all your open tabs easily.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/organizer.png"
+    }
+  },
+  "permissions": ["tabs"],
+  "icons": {
+    "48": "icons/organizer.png",
+    "128": "icons/organizer.png"
+  }
+}
