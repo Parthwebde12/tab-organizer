@@ -4,62 +4,84 @@ const saveSessionBtn = document.getElementById("saveSession");
 const restoreSessionBtn = document.getElementById("restoreSession");
 
 
-function loadTabs() {
-    chrome.tabs.query({ currentWindow: true }, (tabs) => {
-        tabList.innerHTML = "";
-        const seenUrls = new Set();
+// ✅ Load and Display Tabs
+async function loadTabs() {
+    const tabs = await chrome.tabs.query({ currentWindow: true });
 
-        tabs.forEach(tab => {
-            // Skip duplicate URLs
-            if(seenUrls.has(tab.url)) return;
-            seenUrls.add(tab.url);
+    tabList.innerHTML = "";
+    const seenUrls = new Set();
 
-            const li = document.createElement("li");
-            li.textContent = tab.title.length > 35 ? tab.title.slice(0,35) + "..." : tab.title;
+    tabs.forEach(tab => {
+        if (!tab.url || seenUrls.has(tab.url)) return;
+        seenUrls.add(tab.url);
 
-            const closeBtn = document.createElement("button");
-            closeBtn.textContent = "✖";
-            closeBtn.addEventListener("click", () => {
-                chrome.tabs.remove(tab.id, loadTabs);
-            });
+        const li = document.createElement("li");
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
 
-            li.appendChild(closeBtn);
-            tabList.appendChild(li);
+        const titleSpan = document.createElement("span");
+        const title = tab.title || "Untitled";
+
+        titleSpan.textContent =
+            title.length > 35 ? title.slice(0, 35) + "..." : title;
+
+        // Close button
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "✖";
+        closeBtn.style.cursor = "pointer";
+
+        closeBtn.addEventListener("click", async () => {
+            await chrome.tabs.remove(tab.id);
+            loadTabs();
         });
+
+        li.appendChild(titleSpan);
+        li.appendChild(closeBtn);
+        tabList.appendChild(li);
     });
 }
 
+
+// ✅ Search Tabs
 searchInput.addEventListener("input", () => {
     const filter = searchInput.value.toLowerCase();
+
     Array.from(tabList.children).forEach(li => {
-        if(li.firstChild.textContent.toLowerCase().includes(filter)){
-            li.style.display = "flex";
-        } else {
-            li.style.display = "none";
-        }
+        const title = li.querySelector("span").textContent.toLowerCase();
+        li.style.display = title.includes(filter) ? "flex" : "none";
     });
 });
 
 
-saveSessionBtn.addEventListener("click", () => {
-    chrome.tabs.query({ currentWindow: true }, (tabs) => {
-        const urls = tabs.map(t => t.url);
-        chrome.storage.local.set({ savedSession: urls }, () => {
-            alert("Session saved! ✅");
+// ✅ Save Session
+saveSessionBtn.addEventListener("click", async () => {
+    const tabs = await chrome.tabs.query({ currentWindow: true });
+    const urls = tabs
+        .map(t => t.url)
+        .filter(url => url && !url.startsWith("chrome://"));
+
+    await chrome.storage.local.set({ savedSession: urls });
+
+    alert("Session saved successfully ✅");
+});
+
+
+// ✅ Restore Session (Smooth Open)
+restoreSessionBtn.addEventListener("click", async () => {
+    const data = await chrome.storage.local.get("savedSession");
+
+    if (data.savedSession && data.savedSession.length > 0) {
+        data.savedSession.forEach((url, index) => {
+            setTimeout(() => {
+                chrome.tabs.create({ url });
+            }, index * 200); // prevents spam opening
         });
-    });
+    } else {
+        alert("No session saved!");
+    }
 });
 
 
-restoreSessionBtn.addEventListener("click", () => {
-    chrome.storage.local.get("savedSession", (data) => {
-        if(data.savedSession && data.savedSession.length > 0) {
-            data.savedSession.forEach(url => chrome.tabs.create({ url }));
-        } else {
-            alert("No session saved!");
-        }
-    });
-});
-
-
+// Initial Load
 loadTabs();

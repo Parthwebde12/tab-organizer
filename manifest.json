@@ -6,12 +6,12 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "48": "icons/organizer.png"
+      "48": "icons/organizer.jpg"
     }
   },
   "permissions": ["tabs", "storage"],
   "icons": {
-    "48": "icons/organizer.png",
-    "128": "icons/organizer.png"
+    "48": "icons/organizer.jpg",
+    "128": "icons/organizer.jpg"
   }
 }
