@@ -4,18 +4,37 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dev Tab Organizer</title>
-  <meta name="theme-color" content="#0f172a" />
+  <title>DevFlow Workspace</title>
+  <meta name="theme-color" content="#0b1020" />
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Dev Tab Organizer</h1>
-    <input id="search" type="text" placeholder="Search tabs..." autocomplete="off" />
-    <button id="groupBtn">Auto Group</button>
-    <button id="saveBtn">Save Workspace</button>
-    <button id="loadBtn">Load Workspace</button>
-    <div id="tabList"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Developer Workspace</p>
+        <h1>DevFlow</h1>
+      </div>
+      <span class="badge">LIVE</span>
+    </header>
+
+    <section class="search-wrap">
+      <input id="search" type="text" placeholder="Search project tabs..." autocomplete="off" />
+    </section>
+
+    <section class="actions-grid">
+      <button id="groupBtn">Smart Group</button>
+      <button id="saveBtn">Save Flow</button>
+      <button id="loadBtn">Restore Flow</button>
+    </section>
+
+    <section class="workspace-panel">
+      <div class="panel-head">
+        <span>Active Session</span>
+        <span id="tabCount">0 tabs</span>
+      </div>
+      <div id="tabList" class="tab-list"></div>
+    </section>
   </div>
   <script src="popup.js" defer></script>
 </body>
