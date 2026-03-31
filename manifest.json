@@ -1,17 +1,28 @@
 {
   "manifest_version": 3,
-  "name": "Smart Tab Organizer & Saver",
-  "version": "1.0",
-  "description": "Organize tabs, close duplicates, and save/restore sessions easily.",
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "48": "icons/organizer.jpg"
-    }
+  "name": "Advanced Dev Tab Organizer",
+  "version": "2.0.0",
+  "description": "Advanced tab organizer for developers",
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "storage",
+    "sessions",
+    "commands"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
   },
-  "permissions": ["tabs", "storage"],
-  "icons": {
-    "48": "icons/organizer.jpg",
-    "128": "icons/organizer.jpg"
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "commands": {
+    "group-tabs": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+G"
+      },
+      "description": "Auto group developer tabs"
+    }
   }
 }

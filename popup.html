@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="style.css">
-    <title>Tab Organizer</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Tab Organizer</title>
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="stylesheet" href="popup.css" />
 </head>
-
 <body>
-
-    <h2>Smart Tab Organizer 🗂</h2>
-
-  <input type="text" id="search" placeholder="Search tabs..." />
-
-  <ul id="tabList"></ul>
-
-  <div class="session-buttons">
-    <button id="saveSession">💾 Save Session</button>
-    <button id="restoreSession">♻ Restore Session</button>
+  <div class="container">
+    <h1>Dev Tab Organizer</h1>
+    <input id="search" type="text" placeholder="Search tabs..." autocomplete="off" />
+    <button id="groupBtn">Auto Group</button>
+    <button id="saveBtn">Save Workspace</button>
+    <button id="loadBtn">Load Workspace</button>
+    <div id="tabList"></div>
   </div>
+  <script src="popup.js" defer></script>
 </body>
 </html>
