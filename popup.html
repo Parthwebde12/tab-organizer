@@ -1,41 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DevFlow Workspace</title>
-  <meta name="theme-color" content="#0b1020" />
-  <link rel="stylesheet" href="popup.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevFlow - Tab Organizer</title>
+    <meta name="theme-color" content="#667eea">
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">Developer Workspace</p>
-        <h1>DevFlow</h1>
-      </div>
-      <span class="badge">LIVE</span>
-    </header>
-
-    <section class="search-wrap">
-      <input id="search" type="text" placeholder="Search project tabs..." autocomplete="off" />
-    </section>
-
-    <section class="actions-grid">
-      <button id="groupBtn">Smart Group</button>
-      <button id="saveBtn">Save Flow</button>
-      <button id="loadBtn">Restore Flow</button>
-    </section>
-
-    <section class="workspace-panel">
-      <div class="panel-head">
-        <span>Active Session</span>
-        <span id="tabCount">0 tabs</span>
-      </div>
-      <div id="tabList" class="tab-list"></div>
-    </section>
-  </div>
-  <script src="popup.js" defer></script>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <h1>DevFlow</h1>
+                <p>Workspace Manager</p>
+                <span class="badge">✨ Active</span>
+            </div>
+        </header>
+        <main>
+            <section class="section">
+                <label class="section-title" for="search">Search Tabs</label>
+                <input type="text" id="search" class="search-input" placeholder="🔍 Search your tabs..." autocomplete="off" aria-label="Search tabs">
+            </section>
+            <section class="section">
+                <div class="section-title">Quick Actions</div>
+                <div class="button-grid">
+                    <button id="groupBtn" class="btn btn-primary" aria-label="Smart group tabs">📁 Group</button>
+                    <button id="saveBtn" class="btn btn-secondary" aria-label="Save current workspace">💾 Save</button>
+                    <button id="loadBtn" class="btn btn-tertiary" aria-label="Load workspace">⚡ Load</button>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-title"> Active Session <span class="tab-count" id="tabCount">0 tabs</span> </div>
+                <div id="tabList" class="tab-list" role="list" aria-label="Open tabs list">
+                    <div style="text-align: center; color: #999; padding: 20px; font-size: 14px;"> Loading your tabs... </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p>© 2026 DevFlow • Made for Developers</p>
+        </footer>
+    </div>
+    <script src="popup.js" defer></script>
 </body>
 </html>
