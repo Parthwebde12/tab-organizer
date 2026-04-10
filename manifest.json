@@ -14,6 +14,6 @@
   },
   "action": {
     "default_popup": "popup/popup.html",
-    "default_icon": "icons/icon128.png"
+    "default_icon": "icons/organizer.jpg"
   }
 }
