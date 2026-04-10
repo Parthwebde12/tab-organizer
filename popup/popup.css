@@ -1,0 +1,9 @@
+body { font-family: 'Segoe UI', Arial, sans-serif; width: 320px; margin: 0; padding: 0; }
+.search-container { padding: 10px; }
+#tab-search { width: 95%; padding: 6px; border-radius: 4px; border: 1px solid #aaa; }
+#tab-list { list-style-type: none; margin: 0; padding: 0; max-height: 250px; overflow-y: auto; }
+#tab-list li { padding: 8px; border-bottom: 1px solid #efefef; cursor: pointer; }
+#tab-list li:hover { background: #efefef; }
+.actions { display: flex; justify-content: space-around; margin: 10px 0; }
+button { background: #1976d2; color: #fff; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;}
+button:hover { background: #1565c0; }
