@@ -3,20 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Tab Organizer Pro</title>
   <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
-  <div class="search-container">
-    <input type="text" id="tab-search" placeholder="Search tabs...">
-  </div>
+  <div class="app">
 
-  <ul id="tab-list"></ul>
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">T</div>
+        <div>
+          <h1>Tab Organizer</h1>
+          <p id="tab-count">Loading tabs...</p>
+        </div>
+      </div>
 
-  <div class="actions">
-    <button id="save-session">Save Session</button>
-    <button id="restore-session">Restore Session</button>
+      <button id="refresh-tabs" class="icon-btn" title="Refresh">
+        ↻
+      </button>
+    </header>
+
+    <div class="search-box">
+      <span>⌕</span>
+      <input
+        id="tab-search"
+        type="text"
+        placeholder="Search tabs..."
+        autocomplete="off"
+      >
+    </div>
+
+    <div id="duplicate-alert" class="duplicate-alert hidden">
+      <div class="alert-icon">!</div>
+
+      <div class="alert-content">
+        <strong id="duplicate-count">0 duplicates</strong>
+        <span>Duplicate tabs detected</span>
+      </div>
+
+      <button id="close-duplicates">
+        Clean
+      </button>
+    </div>
+
+    <div class="section-header">
+      <span>Open Tabs</span>
+      <span id="visible-count"></span>
+    </div>
+
+    <div id="tab-container">
+      <ul id="tab-list"></ul>
+
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">⌕</div>
+        <h2>No tabs found</h2>
+        <p>Try searching for another tab.</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="save-session" class="secondary-btn">
+        Save Session
+      </button>
+
+      <button id="restore-session" class="primary-btn">
+        Restore
+      </button>
+    </div>
+
+    <footer>
+      <span>Tab Organizer Pro</span>
+      <span>v2.0</span>
+    </footer>
+
   </div>
 
   <script src="popup.js"></script>

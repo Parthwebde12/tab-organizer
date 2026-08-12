@@ -1,20 +1,39 @@
-const SUSPEND_AFTER = 1000 * 60 * 30; // 30 minutes
+const INACTIVE_TIME = 30 * 60 * 1000;
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (!tab.active) {
-    chrome.tabs.update(tabId, {autoDiscardable: true});
+  if (changeInfo.status === "complete") {
+    checkInactiveTabs();
   }
 });
 
-// Periodically discard unused tabs
-setInterval(() => {
-  chrome.tabs.query({}, tabs => {
+chrome.tabs.onActivated.addListener(() => {
+  checkInactiveTabs();
+});
+
+async function checkInactiveTabs() {
+  try {
+    const tabs = await chrome.tabs.query({});
+
     const now = Date.now();
-    tabs.forEach(tab => {
-      // Example: suspend if not active for 30 min
-      if (!tab.active && (now - new Date(tab.lastAccessed)) > SUSPEND_AFTER) {
-        chrome.tabs.discard(tab.id);
+
+    for (const tab of tabs) {
+      if (!tab.id) continue;
+
+      if (tab.active) continue;
+
+      if (!tab.lastAccessed) continue;
+
+      const inactiveTime = now - tab.lastAccessed;
+
+      if (inactiveTime > INACTIVE_TIME) {
+        try {
+          await chrome.tabs.discard(tab.id);
+        } catch (error) {
+          console.log("Could not discard tab:", tab.id);
+        }
       }
-    });
-  });
-}, 60000); // Every minute
+    }
+  } catch (error) {
+    console.error("Tab check failed:", error);
+  }
+}
